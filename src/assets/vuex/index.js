@@ -28,8 +28,8 @@ export default new Vuex.Store({
             state.page++;
         },
         changeItem(state, newVal) {
-            const tmp = state.beers[ newVal.indexChange];
-            tmp.name =  newVal.name;
+            const tmp = state.beers[newVal.indexChange];
+            tmp.name = newVal.name;
             tmp.description = newVal.description;
             console.log(tmp);
             state.beers.splice(newVal.indexChange, 1, tmp);

@@ -13,7 +13,9 @@
         class="img-size">
     <button @click="isShowForm=true" v-show="!isShowForm">Edit</button>
     <button @click="$store.commit('deleteItem', index)">Delete</button>
-    <form v-show="isShowForm">
+    <form
+        v-show="isShowForm"
+        style="border: 1px solid black;border-radius: 5px;padding: 10px">
       <div>Name:</div>
       <input type="text" v-model.trim="name">
       <div>Description:</div>
@@ -54,7 +56,7 @@ export default {
         indexChange: this.index
       }
       this.$store.commit('changeItem', newVal);
-      this.isShowForm=false;
+      this.isShowForm = false;
     }
   },
   mounted() {
