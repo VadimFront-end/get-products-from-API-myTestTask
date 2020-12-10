@@ -1,28 +1,57 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div v-if="GET_LOADING" class="loading">Loading...</div>
+    <div v-else>
+      <BeerItem
+          v-for="(beer, index) in GET_BEERS"
+          :key="beer.id"
+          :index="index"
+          :beer="beer"/>
+      <button
+          v-if="IS_SHOW_BUTTON_NEXT"
+          class="button-show-next"
+          @click="$store.dispatch('GET_BEERS', (GET_BEERS.length + 25) / 25)">Show next
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BeerItem from './components/BeerItem'
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    BeerItem
+  },
+  computed: {
+    ...mapGetters([
+      'GET_BEERS',
+      'IS_SHOW_BUTTON_NEXT',
+      'GET_LOADING'
+    ])
+  },
+  mounted() {
+    this.$store.dispatch('GET_BEERS', 1);
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.button-show-next {
+  display: block;
+  margin: 20px auto;
+}
+
+.loading {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-size: 50px;
+  font-weight: 600;
 }
 </style>
